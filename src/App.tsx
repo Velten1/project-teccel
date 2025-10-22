@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer.tsx";
 import RegisterForm from "./components/RegisterForm.tsx";
+import LoginForm from "./components/LoginForm.tsx";
 
 function App() {
   return (
@@ -23,6 +24,17 @@ function App() {
               <div className="flex flex-col flex-grow">
                 <main className="flex-grow justify-center">
                 <RegisterForm />
+                </main>
+                <Footer />
+              </div>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <div className="flex flex-col flex-grow">
+                <main className="flex-grow justify-center">
+                <LoginForm />
                 </main>
                 <Footer />
               </div>
