@@ -22,7 +22,7 @@ function App() {
             path="/register"
             element={
               <div className="flex flex-col flex-grow">
-                <main className="flex-grow justify-center">
+                <main className="flex-grow">
                 <RegisterForm />
                 </main>
                 <Footer />
