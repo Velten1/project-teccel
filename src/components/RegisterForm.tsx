@@ -21,8 +21,8 @@ function RegisterForm() {
         
         {/* Imagem à esquerda */}
         <div className="flex flex-col items-center justify-center mr-8">
-          <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 shadow-custom sm:w-[900px] h-[500px]"
-          style={{ backgroundImage: "url(img/backgroundsection.jpg)", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <div className="bg-gradient-to-br from-blue-900/50 via-blue-800/40 to-purple-900/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl sm:w-[900px] h-[500px] shadow-blue-500/40 hover:shadow-purple-500/60 transition-all duration-500"
+          style={{ backgroundImage: "url(img/celltechform1.png)", backgroundSize: 'cover', backgroundPosition: 'center' }}>
           </div>
         </div>
 
