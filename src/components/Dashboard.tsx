@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+    const navigate = useNavigate();
     const [name, setName] = useState("")
     const [tel, setTel] = useState("")
     const [email, setEmail] = useState("")
     const [doubt, setDoubt] = useState("")
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -14,6 +17,10 @@ function Dashboard() {
         setTel("");
         setEmail("");
         setDoubt("");
+    };
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
     return (
@@ -34,13 +41,19 @@ function Dashboard() {
                         </div>
                         
                         <nav className="hidden md:flex space-x-8">
-                            <a href="#" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">HOME</a>
+                                <a href="#" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">HOME</a>
                             <a href="#sobre" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">SOBRE</a>
                             <a href="#produtos" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">PRODUTOS</a>
                             <a href="#contato" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">CONTATO</a>
+                            <a href="" className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                            onClick={() => navigate("/login")}
+                            >Logue Já!</a>
                         </nav>
                         
-                        <button className="md:hidden text-gray-700 hover:text-blue-600">
+                        <button 
+                            className="md:hidden text-gray-700 hover:text-blue-600"
+                            onClick={toggleMobileMenu}
+                        >
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
@@ -48,6 +61,50 @@ function Dashboard() {
                     </div>
                 </div>
             </header>
+            {isMobileMenuOpen && (
+                <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
+                    <div className="px-4 py-2 space-y-2">
+                        <a 
+                            href="#" 
+                            className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                            HOME
+                        </a>
+                        <a 
+                            href="#sobre" 
+                            className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                            SOBRE
+                        </a>
+                        <a 
+                            href="#produtos" 
+                            className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                            PRODUTOS
+                        </a>
+                        <a 
+                            href="#contato" 
+                            className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                            CONTATO
+                        </a>
+                        <a 
+                            href="" 
+                            className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                            onClick={() => {
+                                setIsMobileMenuOpen(false);
+                                navigate("/login");
+                            }}
+                        >
+                            Logue Já!
+                        </a>
+                    </div>
+                </div>
+            )}
 
             <section className="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-16">
                 <div className="container mx-auto px-4 text-center">
