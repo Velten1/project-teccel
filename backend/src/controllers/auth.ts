@@ -22,6 +22,14 @@ export const register = async (req: Request, res: Response) => {
         const response = await registerUser(name, cpf, email, tel, password)
         return res.status(response.status).json(response)
     } catch (error: any) {
+        console.error('Erro no registro:', error);
+        
+        // Tratar erros específicos do Prisma
+        if (error.code === 'P2002') {
+            const field = error.meta?.target?.[0] || 'campo';
+            return res.status(400).json({ message: `${field} já cadastrado` })
+        }
+        
         return res.status(500).json({ message: 'Erro interno do servidor', error: error.message })
     }
 }

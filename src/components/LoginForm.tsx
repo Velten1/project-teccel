@@ -1,10 +1,32 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../service/authService.ts"
 
 function LoginForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  async function loginformSubmit() {
+    try {
+      const response = await login({email, password})
+
+      if (response) {
+        console.log("login bem sucedido!")
+        navigate("/")
+      }
+    } catch (error: any) {
+      if (error.response) {
+        console.error("Erro no login:", error.response.data.message);
+        alert(error.response.data.message);
+      } else {
+        console.error("Erro desconhecido no login:", error.message);
+        alert("Erro interno no servidor. Tente novamente mais tarde.");
+      }
+    }
+
+
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -82,7 +104,7 @@ function LoginForm() {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 bg-gray-50 focus:bg-white"
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 bg-gray-50 focus:bg-white text-gray-900"
                 placeholder="seu@email.com"
                 required
               />
@@ -100,7 +122,7 @@ function LoginForm() {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 bg-gray-50 focus:bg-white"
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 bg-gray-50 focus:bg-white text-gray-900"
                 placeholder="••••••••"
                 required
               />
@@ -119,6 +141,7 @@ function LoginForm() {
               <button
                 type="button"
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-xl"
+                onClick={loginformSubmit}
               >
                 <span className="flex items-center justify-center">
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

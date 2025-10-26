@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs'
 import {
     createUser,
     findUserByEmail,
+    findUserByCpf,
     generateToken,
     findUserById
 } from '../repository/auth'
@@ -26,9 +27,14 @@ export const registerUser = async (
         return { status: 400, message: "A Senha precisa ter no minimo 6 caracteres" }
     }
     
-    const existingUser = await findUserByEmail(email) 
-    if (existingUser){
+    const existingUserByEmail = await findUserByEmail(email) 
+    if (existingUserByEmail){
         return { status: 400, message: "Email já cadastrado" }
+    }
+
+    const existingUserByCpf = await findUserByCpf(cpf)
+    if (existingUserByCpf){
+        return { status: 400, message: "CPF já cadastrado" }
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)

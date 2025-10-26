@@ -1,13 +1,38 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { register } from "../service/authService.ts";
 
 function RegisterForm() {
   const [name, setName] = useState("");
+  const [cpf, setCpf] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [cpf, setCpf] = useState("")
   const [tel, setTel] = useState("")
+  const [password, setPassword] = useState("")
   const navigate = useNavigate();
+
+ async function registerFormSubmit() {
+    try {
+      const response = await register({ name, cpf, email, tel, password })
+      console.log("Resposta completa:", response.data);
+      
+      if (response.data.status === 201) {
+        console.log("Cadastro bem sucedido")
+        alert("Cadastro realizado com sucesso!");
+        navigate("/login")
+      } else {
+        alert(response.data.message || "Erro no cadastro");
+      }
+    } catch (error: any) {
+      console.error("Erro completo:", error);
+      if (error.response) {
+        console.error("Erro no cadastro:", error.response.data);
+        alert(error.response.data.message || error.response.data.error || "Erro no cadastro");
+      } else {
+        console.error("Erro desconhecido no cadastro:", error.message);
+        alert("Erro interno no servidor. Tente novamente mais tarde.");
+      }
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -86,7 +111,7 @@ function RegisterForm() {
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-gray-50 focus:bg-white"
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-gray-50 focus:bg-white text-gray-900"
                 placeholder="Seu nome completo"
                 required
               />
@@ -103,7 +128,7 @@ function RegisterForm() {
                 id="cpf"
                 value={cpf}
                 onChange={(e) => setCpf(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-gray-50 focus:bg-white"
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-gray-50 focus:bg-white text-gray-900"
                 placeholder="123.456.789-00"
                 required
               />
@@ -120,7 +145,7 @@ function RegisterForm() {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-gray-50 focus:bg-white"
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-gray-50 focus:bg-white text-gray-900"
                 placeholder="seu@email.com"
                 required
               />
@@ -137,7 +162,7 @@ function RegisterForm() {
                 id="tel"
                 value={tel}
                 onChange={(e) => setTel(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-gray-50 focus:bg-white"
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-gray-50 focus:bg-white text-gray-900"
                 placeholder="(11) 99999-9999"
                 required
               />
@@ -154,7 +179,7 @@ function RegisterForm() {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-gray-50 focus:bg-white"
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 bg-gray-50 focus:bg-white text-gray-900"
                 placeholder="••••••••"
                 required
               />
@@ -163,6 +188,7 @@ function RegisterForm() {
               <button
                 type="button"
                 className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-xl"
+                onClick={registerFormSubmit}              
               >
                 <span className="flex items-center justify-center">
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

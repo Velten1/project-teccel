@@ -11,6 +11,12 @@ export const findUserByEmail = async (email: string) => {
     return await prisma.user.findUnique({
         where: { email }
     })
+}
+
+export const findUserByCpf = async (cpf: string) => {
+    return await prisma.user.findUnique({
+        where: { cpf }
+    })
 }   
 
 export const generateToken = async (userId: number) => {
