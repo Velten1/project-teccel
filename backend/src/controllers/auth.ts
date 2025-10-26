@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getUserInfoService , registerUser} from "../services/auth";
+import { getUserInfoService , registerUser, loginUser} from "../services/auth";
 
 export const getUserInfo = async (req: Request, res: Response) => {
     try {
@@ -23,5 +23,24 @@ export const register = async (req: Request, res: Response) => {
         return res.status(response.status).json(response)
     } catch (error: any) {
         return res.status(500).json({ message: 'Erro interno do servidor', error: error.message })
+    }
+}
+
+export const login = async (req: Request, res: Response) => {
+    try {
+        const { email, password } = req.body
+        if (!email || !password) {
+            return res.status(400).json({ message: "Preencha seus dados corretamente!" })
+        }
+
+        const response = await loginUser(email, password)
+        if (!response) {
+            return res.status(500).json({ message: 'Erro interno do servidor' })
+        }
+        
+        return res.status(response.status).json(response)
+    } catch (error:any) {
+        console.error('Erro no login:', error);
+        res.status(500).json({ message: 'Erro interno do servidor', error: error.message });
     }
 }

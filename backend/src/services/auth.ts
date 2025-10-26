@@ -44,3 +44,21 @@ export const registerUser = async (
     const { password: _, ...userWithoutPassword } = newUser
     return { status: 201, data: userWithoutPassword}
 }
+
+export const loginUser = async(
+    email: string,
+    password: string
+) => {
+    const user = await findUserByEmail(email)
+    if (!user) {
+        return { status:404, message: "Usuario não cadastrado!" }
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+        return { status: 401, message: "Credenciais invalidas!" }
+    }
+
+    const token = await generateToken(user.id)
+    const { password: _, ...userWithoutPassword } = user
+    return { status: 200, data: {token, user: userWithoutPassword} }
+}
