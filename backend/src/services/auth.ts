@@ -14,3 +14,33 @@ export const getUserInfoService = async (userId: number) => {
     const { password, ...userWithoutPassword } = user
     return {status: 200, data: userWithoutPassword}
 }
+
+export const registerUser = async (
+    name: string, 
+    cpf: string, 
+    email: string, 
+    tel: string, 
+    password: string
+) => {
+    if (password.length < 6) {
+        return { status: 400, message: "A Senha precisa ter no minimo 6 caracteres" }
+    }
+    
+    const existingUser = await findUserByEmail(email) 
+    if (existingUser){
+        return { status: 400, message: "Email já cadastrado" }
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10)
+    
+    const newUser = await createUser({
+        name,
+        cpf,
+        email,
+        tel,
+        password: hashedPassword
+    })
+
+    const { password: _, ...userWithoutPassword } = newUser
+    return { status: 201, data: userWithoutPassword}
+}
