@@ -16,3 +16,9 @@ export const findUserByEmail = async (email: string) => {
 export const generateToken = async (userId: number) => {
     return jwt.sign({ userId }, process.env.JWT_SECRET!, { expiresIn: '1h' });
 }
+
+export const findUserById = async (id: number) => {
+    return await prisma.user.findUnique({
+        where: { id: id }
+    })
+}
