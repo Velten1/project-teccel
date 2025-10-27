@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { profile } from "../service/authService";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -8,6 +9,19 @@ function Dashboard() {
     const [email, setEmail] = useState("")
     const [doubt, setDoubt] = useState("")
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+    useEffect(() => {
+        async function checkAuth() {
+            try {
+                await profile();
+                setIsLoggedIn(true);
+            } catch {
+                setIsLoggedIn(false);
+            }
+        }
+        checkAuth();
+    }, [])
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -65,9 +79,16 @@ function Dashboard() {
                                    document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth' });
                                }}
                                className="text-gray-700 hover:text-blue-600 font-medium transition-colors">CONTATO</a>
-                            <a href="" className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-                            onClick={() => navigate("/login")}
-                            >Logue Já!</a>
+                            
+                            {isLoggedIn ? (
+                                <a href="" className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                                   onClick={(e) => { e.preventDefault(); navigate("/profile"); }}
+                                >PERFIL</a>
+                            ) : (
+                                <a href="" className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                                   onClick={(e) => { e.preventDefault(); navigate("/login"); }}
+                                >Logue Já!</a>
+                            )}
                         </nav>
                         
                         <button 
@@ -128,16 +149,30 @@ function Dashboard() {
                         >
                             CONTATO
                         </a>
-                        <a 
-                            href="" 
-                            className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
-                            onClick={() => {
-                                setIsMobileMenuOpen(false);
-                                navigate("/login");
-                            }}
-                        >
-                            Logue Já!
-                        </a>
+                        
+                        {isLoggedIn ? (
+                            <a 
+                                href="" 
+                                className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                                onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    navigate("/profile");
+                                }}
+                            >
+                                PERFIL
+                            </a>
+                        ) : (
+                            <a 
+                                href="" 
+                                className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                                onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    navigate("/login");
+                                }}
+                            >
+                                Logue Já!
+                            </a>
+                        )}
                     </div>
                 </div>
             )}
