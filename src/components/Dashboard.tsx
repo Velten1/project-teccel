@@ -164,7 +164,7 @@ function Dashboard() {
             </section>
 
             <div className="bg-gray-800 text-white text-center py-2">
-                <h2 className="text-2xl font-bold">BLOG</h2>
+                <h2 className="text-2xl font-bold">Assistência Técnica</h2>
             </div>
 
             <section id="produtos" className="py-12 bg-white">
@@ -179,7 +179,7 @@ function Dashboard() {
                                     className="w-full h-48 object-contain rounded-lg mx-auto bg-gray-100"
                                 />
                             </div>
-                            <h3 className="text-xl font-bold text-gray-800 mb-2">iPhone 17 Pro Max</h3>
+                            <h3 className="text-xl font-bold text-gray-800 mb-2">iPhone 15 Pro Max</h3>
                             <p className="text-2xl font-bold text-green-600 mb-3">R$ 9.599,00</p>
                             <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
                                 Ver Detalhes
