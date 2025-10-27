@@ -59,3 +59,18 @@ export const login = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Erro interno do servidor', error: error.message });
     }
 }
+
+export const logout = async (req: Request, res: Response) => {
+    try {
+        // Limpar o cookie com as mesmas opções usadas no login
+        res.clearCookie('token', {
+            httpOnly: true,
+            sameSite: 'lax',
+            path: '/'
+        });
+        
+        return res.status(200).json({ message: "Logout bem sucedido!" })
+    } catch (error) {
+        return res.status(500).json({ message: "Erro interno no servidor!" })
+    }
+}
