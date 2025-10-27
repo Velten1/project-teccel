@@ -3,6 +3,7 @@ import Footer from "./components/Footer.tsx";
 import RegisterForm from "./components/RegisterForm.tsx";
 import LoginForm from "./components/LoginForm.tsx";
 import Dashboard from "./components/Dashboard.tsx";
+import Profile from "./components/Profile.tsx";
 
 function App() {
   return (
@@ -38,6 +39,17 @@ function App() {
               <div className="flex flex-col flex-grow">
                 <main className="flex-grow justify-center">
                 <LoginForm />
+                </main>
+                <Footer />
+              </div>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <div className="flex flex-col flex-grow">
+                <main className="flex-grow justify-center">
+                <Profile />
                 </main>
                 <Footer />
               </div>
