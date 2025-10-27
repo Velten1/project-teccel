@@ -41,10 +41,30 @@ function Dashboard() {
                         </div>
                         
                         <nav className="hidden md:flex space-x-8">
-                                <a href="#" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">HOME</a>
-                            <a href="#sobre" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">SOBRE</a>
-                            <a href="#produtos" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">PRODUTOS</a>
-                            <a href="#contato" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">CONTATO</a>
+                                <a href="#" 
+                                   onClick={(e) => {
+                                       e.preventDefault();
+                                       window.scrollTo({ top: 0, behavior: 'smooth' });
+                                   }}
+                                   className="text-gray-700 hover:text-blue-600 font-medium transition-colors">HOME</a>
+                            <a href="#sobre" 
+                               onClick={(e) => {
+                                   e.preventDefault();
+                                   document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' });
+                               }}
+                               className="text-gray-700 hover:text-blue-600 font-medium transition-colors">SOBRE</a>
+                            <a href="#produtos" 
+                               onClick={(e) => {
+                                   e.preventDefault();
+                                   document.getElementById('produtos')?.scrollIntoView({ behavior: 'smooth' });
+                               }}
+                               className="text-gray-700 hover:text-blue-600 font-medium transition-colors">PRODUTOS</a>
+                            <a href="#contato" 
+                               onClick={(e) => {
+                                   e.preventDefault();
+                                   document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth' });
+                               }}
+                               className="text-gray-700 hover:text-blue-600 font-medium transition-colors">CONTATO</a>
                             <a href="" className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
                             onClick={() => navigate("/login")}
                             >Logue Já!</a>
@@ -67,28 +87,44 @@ function Dashboard() {
                         <a 
                             href="#" 
                             className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
-                            onClick={() => setIsMobileMenuOpen(false)}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setIsMobileMenuOpen(false);
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
                         >
                             HOME
                         </a>
                         <a 
                             href="#sobre" 
                             className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
-                            onClick={() => setIsMobileMenuOpen(false)}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setIsMobileMenuOpen(false);
+                                document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' });
+                            }}
                         >
                             SOBRE
                         </a>
                         <a 
                             href="#produtos" 
                             className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
-                            onClick={() => setIsMobileMenuOpen(false)}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setIsMobileMenuOpen(false);
+                                document.getElementById('produtos')?.scrollIntoView({ behavior: 'smooth' });
+                            }}
                         >
                             PRODUTOS
                         </a>
                         <a 
                             href="#contato" 
                             className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
-                            onClick={() => setIsMobileMenuOpen(false)}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setIsMobileMenuOpen(false);
+                                document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth' });
+                            }}
                         >
                             CONTATO
                         </a>
