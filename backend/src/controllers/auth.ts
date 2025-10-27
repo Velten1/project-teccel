@@ -42,9 +42,16 @@ export const login = async (req: Request, res: Response) => {
         }
 
         const response = await loginUser(email, password)
-        if (!response) {
+        if (!response || !response.data) {
             return res.status(500).json({ message: 'Erro interno do servidor' })
         }
+        
+        // Envia o token como cookie httpOnly
+        res.cookie('token', response.data.token, {
+            httpOnly: true,
+            maxAge: 3600000, // 1 hora
+            sameSite: 'lax'
+        });
         
         return res.status(response.status).json(response)
     } catch (error:any) {
