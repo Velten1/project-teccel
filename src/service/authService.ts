@@ -11,3 +11,7 @@ export const login = async (userData: any) => {
 export const profile = async () => {
     return await api.get("auth/me")
 }
+
+export const logout = async () => {
+    return await api.post("auth/logout");
+  };

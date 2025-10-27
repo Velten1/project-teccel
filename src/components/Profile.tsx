@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { profile } from "../service/authService";
+import { profile, logout } from "../service/authService";
 
 function Profile() {
   const navigate = useNavigate();
@@ -30,10 +30,7 @@ function Profile() {
   }, []);
 
   const handleLogout = () => {
-    // Remover token do localStorage e cookies
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    logout();
     navigate("/login");
   };
 
