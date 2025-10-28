@@ -11,6 +11,7 @@ function Dashboard() {
     const [doubt, setDoubt] = useState("")
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isAdmin, setIsAdmin] = useState(false)
 
     useEffect(() => {
         async function checkAuth() {
@@ -22,6 +23,20 @@ function Dashboard() {
             }
         }
         checkAuth();
+    }, [])
+
+    useEffect(() => {
+        async function checkAdmin() {
+            try {
+                const response = await profile();
+                if (response.data.data.role === "admin") {
+                    setIsAdmin(true);
+                }
+            } catch {
+                setIsAdmin(false);
+            }
+        }
+        checkAdmin();
     }, [])
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -54,16 +69,18 @@ function Dashboard() {
                 <div className="container mx-auto px-4 py-4">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center">
-                            <a 
-                                href="#" 
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    navigate("/dashboard-req");
-                                }}
-                                className="text-xs text-gray-600 hover:text-blue-600 transition-colors mr-4"
-                            >
-                                Painel
-                            </a>
+                            {isAdmin && (
+                                <a 
+                                    href="#" 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        navigate("/dashboard-req");
+                                    }}
+                                    className="text-xs text-gray-600 hover:text-blue-600 transition-colors mr-4"
+                                >
+                                    Painel
+                                </a>
+                            )}
                             <img 
                                 src="img/celltechform1.png" 
                                 alt="CELLTECH Logo" 
@@ -170,7 +187,19 @@ function Dashboard() {
                         >
                             CONTATO
                         </a>
-                        
+                        {isAdmin && (
+                            <a 
+                                href="#" 
+                                className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setIsMobileMenuOpen(false);
+                                    navigate("/dashboard-req");
+                                }}
+                            >
+                                PAINEL
+                            </a>
+                        )}
                         {isLoggedIn ? (
                             <a 
                                 href="" 

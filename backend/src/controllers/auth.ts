@@ -52,6 +52,12 @@ export const login = async (req: Request, res: Response) => {
             maxAge: 3600000, // 1 hora
             sameSite: 'lax'
         });
+
+        res.cookie('userRole', response.data.user.role, {
+            httpOnly: true,
+            maxAge: 3600000,
+            sameSite: 'lax'
+        }) 
         
         return res.status(response.status).json(response)
     } catch (error:any) {
@@ -62,8 +68,14 @@ export const login = async (req: Request, res: Response) => {
 
 export const logout = async (req: Request, res: Response) => {
     try {
-        // Limpar o cookie com as mesmas opções usadas no login
+        // Limpar os cookies com as mesmas opções usadas no login
         res.clearCookie('token', {
+            httpOnly: true,
+            sameSite: 'lax',
+            path: '/'
+        });
+        
+        res.clearCookie('userRole', {
             httpOnly: true,
             sameSite: 'lax',
             path: '/'
