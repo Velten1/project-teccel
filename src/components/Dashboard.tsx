@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { profile } from "../service/authService";
+import { sendContactRequest } from "../service/contactService";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -23,14 +24,24 @@ function Dashboard() {
         checkAuth();
     }, [])
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log({ name, tel, email, doubt });
-        alert("Mensagem enviada com sucesso!");
-        setName("");
-        setTel("");
-        setEmail("");
-        setDoubt("");
+        
+        try {
+            await sendContactRequest({ 
+                name, 
+                email, 
+                tel, 
+                message: doubt 
+            });
+            alert("Mensagem enviada com sucesso!")
+            setName("")
+            setTel("")
+            setEmail("")
+            setDoubt("")
+        } catch (error: any) {
+            alert(error.response?.data?.message || "Erro ao enviar mensagem!")
+        }
     };
 
     const toggleMobileMenu = () => {

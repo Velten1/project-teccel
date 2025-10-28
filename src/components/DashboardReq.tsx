@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getContactRequests } from "../service/contactService";
 
 function DashboardReq() {
     const navigate = useNavigate();
@@ -7,8 +8,17 @@ function DashboardReq() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // futura req do backend
-        setLoading(false);
+        async function fetchRequests() {
+            try {
+                const response = await getContactRequests();
+                setRequests(response.data.data)
+            } catch (error) {
+                console.error("Erro ao buscar requisições", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchRequests();
     }, []);
 
     return (
