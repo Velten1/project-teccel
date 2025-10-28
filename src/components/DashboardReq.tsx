@@ -90,7 +90,7 @@ function DashboardReq() {
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{request.name}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{request.tel}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{request.email}</td>
-                                            <td className="px-6 py-4 text-sm text-gray-500">{request.doubt}</td>
+                                            <td className="px-6 py-4 text-sm text-gray-500">{request.message}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(request.createdAt).toLocaleDateString()}</td>
                                         </tr>
                                     ))}
