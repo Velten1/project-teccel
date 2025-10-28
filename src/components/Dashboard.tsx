@@ -54,6 +54,16 @@ function Dashboard() {
                 <div className="container mx-auto px-4 py-4">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center">
+                            <a 
+                                href="#" 
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    navigate("/dashboard-req");
+                                }}
+                                className="text-xs text-gray-600 hover:text-blue-600 transition-colors mr-4"
+                            >
+                                Painel
+                            </a>
                             <img 
                                 src="img/celltechform1.png" 
                                 alt="CELLTECH Logo" 
