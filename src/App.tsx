@@ -4,6 +4,7 @@ import RegisterForm from "./components/RegisterForm.tsx";
 import LoginForm from "./components/LoginForm.tsx";
 import Dashboard from "./components/Dashboard.tsx";
 import Profile from "./components/Profile.tsx";
+import DashboardReq from "./components/DashboardReq.tsx";
 
 function App() {
   return (
@@ -52,6 +53,16 @@ function App() {
                 <Profile />
                 </main>
                 <Footer />
+              </div>
+            }
+          />
+          <Route
+            path="/dashboard-req"
+            element={
+              <div className="flex flex-col flex-grow">
+                <main className="flex-grow">
+                <DashboardReq />
+                </main>
               </div>
             }
           />
