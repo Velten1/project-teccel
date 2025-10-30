@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import { getUserInfoService , registerUser, loginUser} from "../services/auth";
+import { getUserInfoService , registerUser, loginUser, resetUserPassword } from "../services/auth";
+import { findUserByEmail } from "../repository/auth";
 
 export const getUserInfo = async (req: Request, res: Response) => {
     try {
@@ -59,6 +60,29 @@ export const login = async (req: Request, res: Response) => {
             sameSite: 'lax'
         }) 
         
+        return res.status(response.status).json(response)
+    } catch (error:any) {
+        console.error('Erro no login:', error);
+        res.status(500).json({ message: 'Erro interno do servidor', error: error.message });
+    }
+}
+
+export const resetPassword = async (req: Request, res: Response) => {
+    try {
+        const {email, password, newPassword} = req.body
+        if (!email || !password || !newPassword) {
+            return res.status(400).json ({ message: "Preencha seus dados corretamente!" })
+        }
+        const authenticatedUserId = (req as any).userId
+        const userByEmail = await findUserByEmail(email)
+        if (!userByEmail) {
+            return res.status(404).json({ message: "Endereço de e-mail invalido." })
+        }
+        if (userByEmail.id !== authenticatedUserId) {
+            return res.status(403).json({ message: "Email não corresponde ao usuário autenticado" })
+        }
+
+        const response = await resetUserPassword(email, password, newPassword)
         return res.status(response.status).json(response)
     } catch (error:any) {
         console.error('Erro no login:', error);

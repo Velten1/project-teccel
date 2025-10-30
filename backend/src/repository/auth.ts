@@ -28,3 +28,10 @@ export const findUserById = async (id: number) => {
         where: { id: id }
     })
 }
+
+export const updateUserPassword = async (id: number, newPassword: string) => {
+    return await prisma.user.update({
+        where: { id: id},
+        data: { password: newPassword }
+    })
+}

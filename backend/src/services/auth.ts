@@ -4,7 +4,8 @@ import {
     findUserByEmail,
     findUserByCpf,
     generateToken,
-    findUserById
+    findUserById,
+    updateUserPassword
 } from '../repository/auth'
 
 export const getUserInfoService = async (userId: number) => {
@@ -49,6 +50,33 @@ export const registerUser = async (
 
     const { password: _, ...userWithoutPassword } = newUser
     return { status: 201, data: userWithoutPassword}
+}
+
+export const resetUserPassword = async (
+    email: string,
+    password: string, 
+    newPassword: string
+) => {
+    const user = await findUserByEmail(email)
+    if (!user) {
+        return { status : 404, message: "Endereço de e-mail invalido." }
+    }
+    if (newPassword.length < 6) {
+        return { status: 400, message: "A Sua nova senha precisa de no minimo 6 caracteres"}
+    }
+    if (newPassword === password) {
+        return { status:400, message: "A Sua nova senha e sua senha atual não podem coincidir!" }
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password)
+    if (!isPasswordValid) {
+        return { status:401, message: "Senha atual invalida!" }
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10)
+    await updateUserPassword(user.id, hashedPassword);
+
+    return { status:200, message: "Senha redefinida com sucesso!" }
 }
 
 export const loginUser = async(
