@@ -43,10 +43,11 @@ export const login = async (req: Request, res: Response) => {
         }
 
         const response = await loginUser(email, password)
-        if (!response || !response.data) {
-            return res.status(500).json({ message: 'Erro interno do servidor' })
+        // Propaga status correto (401/404/200 etc). Só define cookies em sucesso (200)
+        if (response.status !== 200 || !response.data) {
+            return res.status(response.status).json(response)
         }
-        
+
         // Envia o token como cookie httpOnly
         res.cookie('token', response.data.token, {
             httpOnly: true,
@@ -59,7 +60,7 @@ export const login = async (req: Request, res: Response) => {
             maxAge: 3600000,
             sameSite: 'lax'
         }) 
-        
+
         return res.status(response.status).json(response)
     } catch (error:any) {
         console.error('Erro no login:', error);
