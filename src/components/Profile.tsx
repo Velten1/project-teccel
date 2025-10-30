@@ -183,6 +183,12 @@ function Profile() {
                     >
                       Sair da Conta
                     </button>
+                    <button
+                      onClick={() => navigate("/reset-password")}
+                      className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg transition-colors"
+                    >
+                      Alterar Senha
+                    </button>
                   </div>
                 </div>
               ) : null}

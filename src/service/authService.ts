@@ -15,3 +15,7 @@ export const profile = async () => {
 export const logout = async () => {
     return await api.post("auth/logout");
   };
+
+  export const resetPassword = async (userData: any) => {
+    return await api.post("auth/reset-password", userData)
+  } 

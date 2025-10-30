@@ -5,6 +5,7 @@ import LoginForm from "./components/LoginForm.tsx";
 import Dashboard from "./components/Dashboard.tsx";
 import Profile from "./components/Profile.tsx";
 import DashboardReq from "./components/DashboardReq.tsx";
+import ResetPassword from "./components/ResetPassword.tsx"
 
 function App() {
   return (
@@ -63,6 +64,17 @@ function App() {
                 <main className="flex-grow">
                 <DashboardReq />
                 </main>
+              </div>
+            }
+          />
+          <Route
+            path="/reset-password"
+            element={
+              <div className="flex flex-col flex-grow">
+                <main className="flex-grow">
+                <ResetPassword />
+                </main>
+                <Footer />
               </div>
             }
           />
