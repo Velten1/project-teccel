@@ -81,6 +81,18 @@ function Dashboard() {
                                     Painel
                                 </a>
                             )}
+                            {isAdmin && (
+                                <a 
+                                    href="#" 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        navigate("/addproducts");
+                                    }}
+                                    className="text-xs text-gray-600 hover:text-blue-600 transition-colors mr-4"
+                                >
+                                    Cadastro de produtos
+                                </a>
+                            )}
                             <img 
                                 src="img/celltechform1.png" 
                                 alt="CELLTECH Logo" 
