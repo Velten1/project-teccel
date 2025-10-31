@@ -1,4 +1,4 @@
-import { createProduct, getProductById, deleteProduct, archiveProduct, restoreProduct } from "../repository/product";
+import { createProduct, getProductById, deleteProduct, archiveProduct, restoreProduct, listProducts } from "../repository/product";
 import { Prisma } from "@prisma/client";
 
 export const getProductInfoService = async (productId: number) => {
@@ -8,6 +8,20 @@ export const getProductInfoService = async (productId: number) => {
     }
 
     return { status: 200, data: product }
+}
+
+export const listProductsService = async (options: {
+    name?: string;
+    brand?: string;
+    category?: string;
+    active?: boolean;
+    page?: number;
+    limit?: number;
+    sortBy?: 'createdAt' | 'price' | 'name';
+    sortOrder?: 'asc' | 'desc';
+}) => {
+    const result = await listProducts(options);
+    return { status: 200, data: result };
 }
 
 export const registerProduct = async (
