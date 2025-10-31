@@ -118,9 +118,8 @@ function Dashboard() {
                                }}
                                className="text-gray-700 hover:text-blue-600 font-medium transition-colors">SOBRE</a>
                             <a href="#produtos" 
-                               onClick={(e) => {
-                                   e.preventDefault();
-                                   document.getElementById('produtos')?.scrollIntoView({ behavior: 'smooth' });
+                               onClick={() => {
+                                  navigate("/products")
                                }}
                                className="text-gray-700 hover:text-blue-600 font-medium transition-colors">PRODUTOS</a>
                             <a href="#contato" 

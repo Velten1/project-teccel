@@ -6,7 +6,8 @@ import Dashboard from "./components/Dashboard.tsx";
 import Profile from "./components/Profile.tsx";
 import DashboardReq from "./components/DashboardReq.tsx";
 import ResetPassword from "./components/ResetPassword.tsx";
-import Products from "./components/Products.tsx"
+import Products from "./components/Products.tsx";
+import ProductCatalog from "./components/ProductCatalog.tsx";
 
 function App() {
   return (
@@ -87,6 +88,16 @@ function App() {
                 <Products />
                 </main>
                 <Footer />
+              </div>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <div className="flex flex-col flex-grow">
+                <main className="flex-grow">
+                <ProductCatalog />
+                </main>
               </div>
             }
           />
